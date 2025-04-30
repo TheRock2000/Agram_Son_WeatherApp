@@ -1,0 +1,447 @@
+package com.cs377.weatherapp.ui
+
+import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardActions
+import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Bookmark
+import androidx.compose.material.icons.filled.BookmarkBorder
+import androidx.compose.material.icons.filled.LocationOn
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
+import com.cs377.weatherapp.data.BookmarkedLocation
+import com.cs377.weatherapp.data.Weather
+import com.cs377.weatherapp.data.WeatherResponse
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.math.roundToInt
+
+@Composable
+fun WeatherScreen(
+    viewModel: WeatherViewModel = viewModel()
+) {
+    val uiState by viewModel.uiState.collectAsState()
+    val searchQuery by viewModel.searchQuery.collectAsState()
+    val locationName by viewModel.locationName.collectAsState()
+    val bookmarkedLocations by viewModel.bookmarkedLocations.collectAsState()
+    var showBookmarkSidebar by remember { mutableStateOf(false) }
+    var locationPermissionGranted by remember { mutableStateOf(false) }
+    val locationManager = rememberLocationManager()
+    val context = LocalContext.current
+    
+    LaunchedEffect(Unit) {
+        viewModel.initializeDatabase(context)
+    }
+    
+    LocationPermissionHandler(
+        onPermissionGranted = {
+            locationPermissionGranted = true
+            if (uiState is WeatherUiState.Empty) {
+                locationManager.getCurrentLocation(
+                    onSuccess = { location ->
+                        viewModel.getWeatherByLocation(location.latitude, location.longitude)
+                    },
+                    onFailure = { error ->
+                        // Handle location error
+                    }
+                )
+            }
+        },
+        onPermissionDenied = {
+            locationPermissionGranted = false
+        }
+    ) {
+        Box(modifier = Modifier.fillMaxSize()) {
+            Surface(
+                modifier = Modifier.fillMaxSize(),
+                color = MaterialTheme.colorScheme.background
+            ) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp)
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    // Top Bar
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        horizontalArrangement = Arrangement.Start,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        IconButton(onClick = { showBookmarkSidebar = true }) {
+                            Icon(
+                                imageVector = Icons.Default.Menu,
+                                contentDescription = "Show bookmarks"
+                            )
+                        }
+                    }
+                    
+                    // Location Header
+                    if (uiState is WeatherUiState.Success) {
+                        Text(
+                            text = locationName,
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colorScheme.primary,
+                            modifier = Modifier.padding(bottom = 8.dp)
+                        )
+                    }
+                    
+                    SearchBar(
+                        query = searchQuery,
+                        onQueryChange = viewModel::updateSearchQuery,
+                        onSearch = viewModel::searchCity,
+                        onLocationRequest = {
+                            if (locationPermissionGranted) {
+                                locationManager.getCurrentLocation(
+                                    onSuccess = { location ->
+                                        viewModel.getWeatherByLocation(location.latitude, location.longitude)
+                                    },
+                                    onFailure = { error ->
+                                        // Handle location error
+                                    }
+                                )
+                            }
+                        }
+                    )
+                    
+                    // Bookmark Save Button
+                    if (uiState is WeatherUiState.Success) {
+                        val weatherData = (uiState as WeatherUiState.Success).weatherData
+                        Row(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(vertical = 8.dp),
+                            horizontalArrangement = Arrangement.End
+                        ) {
+                            IconButton(
+                                onClick = {
+                                    if (viewModel.isLocationBookmarked(weatherData.name)) {
+                                        viewModel.removeBookmark(
+                                            BookmarkedLocation(
+                                                name = weatherData.name,
+                                                latitude = weatherData.coord.lat,
+                                                longitude = weatherData.coord.lon,
+                                                country = weatherData.sys.country
+                                            )
+                                        )
+                                    } else {
+                                        viewModel.addBookmark(
+                                            BookmarkedLocation(
+                                                name = weatherData.name,
+                                                latitude = weatherData.coord.lat,
+                                                longitude = weatherData.coord.lon,
+                                                country = weatherData.sys.country
+                                            )
+                                        )
+                                    }
+                                }
+                            ) {
+                                Icon(
+                                    imageVector = if (viewModel.isLocationBookmarked(weatherData.name)) {
+                                        Icons.Default.Bookmark
+                                    } else {
+                                        Icons.Default.BookmarkBorder
+                                    },
+                                    contentDescription = if (viewModel.isLocationBookmarked(weatherData.name)) {
+                                        "Remove bookmark"
+                                    } else {
+                                        "Add bookmark"
+                                    },
+                                    tint = MaterialTheme.colorScheme.primary
+                                )
+                            }
+                        }
+                    }
+                    
+                    Spacer(modifier = Modifier.height(16.dp))
+                    
+                    when (uiState) {
+                        is WeatherUiState.Empty -> {
+                            EmptyState()
+                        }
+                        is WeatherUiState.Loading -> {
+                            LoadingState()
+                        }
+                        is WeatherUiState.Success -> {
+                            val weatherData = (uiState as WeatherUiState.Success).weatherData
+                            val forecastData = (uiState as WeatherUiState.Success).forecastData
+                            
+                            WeatherContent(weatherData = weatherData)
+                            
+                            Spacer(modifier = Modifier.height(16.dp))
+                            
+                            if (forecastData != null) {
+                                ForecastList(forecastData = forecastData)
+                            }
+                        }
+                        is WeatherUiState.Error -> {
+                            val errorMessage = (uiState as WeatherUiState.Error).message
+                            ErrorState(message = errorMessage)
+                        }
+                    }
+                }
+            }
+            
+            // Bookmark Sidebar
+            if (showBookmarkSidebar) {
+                BookmarkSidebar(
+                    bookmarkedLocations = bookmarkedLocations,
+                    onLocationClick = { location ->
+                        viewModel.getWeatherByLocation(location.latitude, location.longitude)
+                        showBookmarkSidebar = false
+                    },
+                    onRemoveBookmark = { location ->
+                        viewModel.removeBookmark(location)
+                    },
+                    onClose = { showBookmarkSidebar = false }
+                )
+            }
+        }
+    }
+}
+
+@Composable
+fun SearchBar(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    onSearch: (String) -> Unit,
+    onLocationRequest: () -> Unit
+) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(56.dp)
+            .clip(RoundedCornerShape(28.dp))
+            .background(MaterialTheme.colorScheme.surfaceVariant),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        TextField(
+            value = query,
+            onValueChange = onQueryChange,
+            modifier = Modifier
+                .weight(1f)
+                .fillMaxHeight(),
+            placeholder = { Text("Search city...") },
+            singleLine = true,
+            colors = TextFieldDefaults.colors(
+                focusedContainerColor = Color.Transparent,
+                unfocusedContainerColor = Color.Transparent,
+                disabledContainerColor = Color.Transparent,
+                cursorColor = MaterialTheme.colorScheme.primary,
+                focusedIndicatorColor = Color.Transparent,
+                unfocusedIndicatorColor = Color.Transparent
+            ),
+            keyboardOptions = KeyboardOptions(imeAction = ImeAction.Search),
+            keyboardActions = KeyboardActions(onSearch = { onSearch(query) })
+        )
+        
+        IconButton(onClick = { onSearch(query) }) {
+            Icon(
+                imageVector = Icons.Default.Search,
+                contentDescription = "Search"
+            )
+        }
+        
+        IconButton(onClick = onLocationRequest) {
+            Icon(
+                imageVector = Icons.Default.LocationOn,
+                contentDescription = "Use current location"
+            )
+        }
+    }
+}
+
+@Composable
+fun EmptyState() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = "Search for a city to see the weather",
+            textAlign = TextAlign.Center,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+    }
+}
+
+@Composable
+fun LoadingState() {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        CircularProgressIndicator()
+    }
+}
+
+@Composable
+fun ErrorState(message: String) {
+    Box(
+        modifier = Modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Icon(
+                imageVector = Icons.Default.LocationOn,
+                contentDescription = "Error",
+                tint = MaterialTheme.colorScheme.error,
+                modifier = Modifier.size(48.dp)
+            )
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            Text(
+                text = "Error: $message",
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.error
+            )
+        }
+    }
+}
+
+@Composable
+fun WeatherContent(weatherData: WeatherResponse) {
+    Column(
+        modifier = Modifier.fillMaxWidth(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = "${weatherData.name}, ${weatherData.sys.country}",
+            fontSize = 24.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        
+        Spacer(modifier = Modifier.height(4.dp))
+        
+        Text(
+            text = getFormattedDate(),
+            fontSize = 16.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        
+        Spacer(modifier = Modifier.height(24.dp))
+        
+        WeatherIcon(weather = weatherData.weather.firstOrNull())
+        
+        Spacer(modifier = Modifier.height(16.dp))
+        
+        Text(
+            text = "${weatherData.main.temp.roundToInt()}°F",
+            fontSize = 64.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+        
+        Text(
+            text = weatherData.weather.firstOrNull()?.description?.capitalize() ?: "",
+            fontSize = 20.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        
+        Spacer(modifier = Modifier.height(32.dp))
+        
+        WeatherDetails(weatherData)
+    }
+}
+
+@Composable
+fun WeatherIcon(weather: Weather?) {
+    weather?.let { 
+        val iconUrl = "https://openweathermap.org/img/wn/${weather.icon}@4x.png"
+        AsyncImage(
+            model = iconUrl,
+            contentDescription = weather.description,
+            modifier = Modifier.size(120.dp)
+        )
+    }
+}
+
+@Composable
+fun WeatherDetails(weatherData: WeatherResponse) {
+    Card(
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant
+        )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp)
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                DetailItem(label = "Feel Like", value = "${weatherData.main.feels_like.roundToInt()}°F")
+                DetailItem(label = "Humidity", value = "${weatherData.main.humidity}%")
+                DetailItem(label = "Wind", value = "${weatherData.wind.speed} m/s")
+            }
+            
+            Spacer(modifier = Modifier.height(16.dp))
+            
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                DetailItem(label = "Min Temp", value = "${weatherData.main.temp_min.roundToInt()}°F")
+                DetailItem(label = "Max Temp", value = "${weatherData.main.temp_max.roundToInt()}°F")
+                DetailItem(label = "Pressure", value = "${weatherData.main.pressure} hPa")
+            }
+        }
+    }
+}
+
+@Composable
+fun DetailItem(label: String, value: String) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Text(
+            text = label,
+            fontSize = 12.sp,
+            color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+        
+        Text(
+            text = value,
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onBackground
+        )
+    }
+}
+
+private fun getFormattedDate(): String {
+    val sdf = SimpleDateFormat("EEEE, d MMMM yyyy", Locale.getDefault())
+    return sdf.format(Date())
+}
+
+private fun String.capitalize(): String {
+    return this.replaceFirstChar { 
+        if (it.isLowerCase()) it.titlecase(Locale.getDefault()) else it.toString() 
+    }
+} 

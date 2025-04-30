@@ -1,0 +1,186 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.cs377.weatherapp"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="33"
+9        android:targetSdkVersion="33" />
+10
+11    <!-- Internet permissions -->
+12    <uses-permission android:name="android.permission.INTERNET" />
+12-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:6:5-67
+12-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:6:22-64
+13    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+13-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:7:5-79
+13-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:7:22-76
+14
+15    <!-- Location permissions -->
+16    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+16-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:10:5-81
+16-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:10:22-78
+17    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+17-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:11:5-79
+17-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:11:22-76
+18
+19    <permission
+19-->[androidx.core:core:1.15.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a446d320e7fc46fe7207bd43cb3a4a38\transformed\core-1.15.0\AndroidManifest.xml:22:5-24:47
+20        android:name="com.cs377.weatherapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+20-->[androidx.core:core:1.15.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a446d320e7fc46fe7207bd43cb3a4a38\transformed\core-1.15.0\AndroidManifest.xml:23:9-81
+21        android:protectionLevel="signature" />
+21-->[androidx.core:core:1.15.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a446d320e7fc46fe7207bd43cb3a4a38\transformed\core-1.15.0\AndroidManifest.xml:24:9-44
+22
+23    <uses-permission android:name="com.cs377.weatherapp.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+23-->[androidx.core:core:1.15.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a446d320e7fc46fe7207bd43cb3a4a38\transformed\core-1.15.0\AndroidManifest.xml:26:5-97
+23-->[androidx.core:core:1.15.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a446d320e7fc46fe7207bd43cb3a4a38\transformed\core-1.15.0\AndroidManifest.xml:26:22-94
+24
+25    <application
+25-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:13:5-34:19
+26        android:allowBackup="true"
+26-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:14:9-35
+27        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+27-->[androidx.core:core:1.15.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a446d320e7fc46fe7207bd43cb3a4a38\transformed\core-1.15.0\AndroidManifest.xml:28:18-86
+28        android:dataExtractionRules="@xml/data_extraction_rules"
+28-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:15:9-65
+29        android:debuggable="true"
+30        android:extractNativeLibs="false"
+31        android:fullBackupContent="@xml/backup_rules"
+31-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:16:9-54
+32        android:icon="@drawable/weather_app_icon"
+32-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:17:9-50
+33        android:label="@string/app_name"
+33-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:18:9-41
+34        android:roundIcon="@drawable/weather_app_icon"
+34-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:19:9-55
+35        android:supportsRtl="true"
+35-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:20:9-35
+36        android:theme="@style/Theme.WeatherApp" >
+36-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:21:9-48
+37        <activity
+37-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:23:9-33:20
+38            android:name="com.cs377.weatherapp.MainActivity"
+38-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:24:13-41
+39            android:exported="true"
+39-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:25:13-36
+40            android:label="@string/app_name"
+40-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:26:13-45
+41            android:theme="@style/Theme.WeatherApp" >
+41-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:27:13-52
+42            <intent-filter>
+42-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:28:13-32:29
+43                <action android:name="android.intent.action.MAIN" />
+43-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:29:17-69
+43-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:29:25-66
+44
+45                <category android:name="android.intent.category.LAUNCHER" />
+45-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:31:17-77
+45-->C:\Users\Henry\AndroidStudioProjects\WeatherApp\app\src\main\AndroidManifest.xml:31:27-74
+46            </intent-filter>
+47        </activity>
+48        <activity
+48-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\Henry\.gradle\caches\8.10.2\transforms\6aded50d2522441658f3015c7dbae7de\transformed\ui-tooling-release\AndroidManifest.xml:23:9-25:39
+49            android:name="androidx.compose.ui.tooling.PreviewActivity"
+49-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\Henry\.gradle\caches\8.10.2\transforms\6aded50d2522441658f3015c7dbae7de\transformed\ui-tooling-release\AndroidManifest.xml:24:13-71
+50            android:exported="true" />
+50-->[androidx.compose.ui:ui-tooling-android:1.6.6] C:\Users\Henry\.gradle\caches\8.10.2\transforms\6aded50d2522441658f3015c7dbae7de\transformed\ui-tooling-release\AndroidManifest.xml:25:13-36
+51        <activity
+51-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\f683dc18ab5c7553a7a6f9256816db07\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:9-22:45
+52            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+52-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\f683dc18ab5c7553a7a6f9256816db07\transformed\play-services-base-18.1.0\AndroidManifest.xml:20:19-85
+53            android:exported="false"
+53-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\f683dc18ab5c7553a7a6f9256816db07\transformed\play-services-base-18.1.0\AndroidManifest.xml:22:19-43
+54            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+54-->[com.google.android.gms:play-services-base:18.1.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\f683dc18ab5c7553a7a6f9256816db07\transformed\play-services-base-18.1.0\AndroidManifest.xml:21:19-78
+55
+56        <meta-data
+56-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\c54348e29d6be82d93d906392fc6fd73\transformed\play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+57            android:name="com.google.android.gms.version"
+57-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\c54348e29d6be82d93d906392fc6fd73\transformed\play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+58            android:value="@integer/google_play_services_version" />
+58-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\c54348e29d6be82d93d906392fc6fd73\transformed\play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+59
+60        <provider
+60-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\36836feffc31e56f4fb40ec4bc6e11c0\transformed\emoji2-1.3.0\AndroidManifest.xml:24:9-32:20
+61            android:name="androidx.startup.InitializationProvider"
+61-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\36836feffc31e56f4fb40ec4bc6e11c0\transformed\emoji2-1.3.0\AndroidManifest.xml:25:13-67
+62            android:authorities="com.cs377.weatherapp.androidx-startup"
+62-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\36836feffc31e56f4fb40ec4bc6e11c0\transformed\emoji2-1.3.0\AndroidManifest.xml:26:13-68
+63            android:exported="false" >
+63-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\36836feffc31e56f4fb40ec4bc6e11c0\transformed\emoji2-1.3.0\AndroidManifest.xml:27:13-37
+64            <meta-data
+64-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\36836feffc31e56f4fb40ec4bc6e11c0\transformed\emoji2-1.3.0\AndroidManifest.xml:29:13-31:52
+65                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+65-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\36836feffc31e56f4fb40ec4bc6e11c0\transformed\emoji2-1.3.0\AndroidManifest.xml:30:17-75
+66                android:value="androidx.startup" />
+66-->[androidx.emoji2:emoji2:1.3.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\36836feffc31e56f4fb40ec4bc6e11c0\transformed\emoji2-1.3.0\AndroidManifest.xml:31:17-49
+67            <meta-data
+67-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a904552f45942046098e0bcf32293c3b\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:29:13-31:52
+68                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+68-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a904552f45942046098e0bcf32293c3b\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:30:17-78
+69                android:value="androidx.startup" />
+69-->[androidx.lifecycle:lifecycle-process:2.8.7] C:\Users\Henry\.gradle\caches\8.10.2\transforms\a904552f45942046098e0bcf32293c3b\transformed\lifecycle-process-2.8.7\AndroidManifest.xml:31:17-49
+70            <meta-data
+70-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:29:13-31:52
+71                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+71-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:30:17-85
+72                android:value="androidx.startup" />
+72-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:31:17-49
+73        </provider>
+74
+75        <activity
+75-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\Henry\.gradle\caches\8.10.2\transforms\9071b12df2694b92bb1d75d3b6927ebc\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:23:9-25:39
+76            android:name="androidx.activity.ComponentActivity"
+76-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\Henry\.gradle\caches\8.10.2\transforms\9071b12df2694b92bb1d75d3b6927ebc\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:24:13-63
+77            android:exported="true" />
+77-->[androidx.compose.ui:ui-test-manifest:1.6.6] C:\Users\Henry\.gradle\caches\8.10.2\transforms\9071b12df2694b92bb1d75d3b6927ebc\transformed\ui-test-manifest-1.6.6\AndroidManifest.xml:25:13-36
+78
+79        <service
+79-->[androidx.room:room-runtime:2.6.1] C:\Users\Henry\.gradle\caches\8.10.2\transforms\f9f572e594068598baef2a23500ec8ea\transformed\room-runtime-2.6.1\AndroidManifest.xml:24:9-28:63
+80            android:name="androidx.room.MultiInstanceInvalidationService"
+80-->[androidx.room:room-runtime:2.6.1] C:\Users\Henry\.gradle\caches\8.10.2\transforms\f9f572e594068598baef2a23500ec8ea\transformed\room-runtime-2.6.1\AndroidManifest.xml:25:13-74
+81            android:directBootAware="true"
+81-->[androidx.room:room-runtime:2.6.1] C:\Users\Henry\.gradle\caches\8.10.2\transforms\f9f572e594068598baef2a23500ec8ea\transformed\room-runtime-2.6.1\AndroidManifest.xml:26:13-43
+82            android:exported="false" />
+82-->[androidx.room:room-runtime:2.6.1] C:\Users\Henry\.gradle\caches\8.10.2\transforms\f9f572e594068598baef2a23500ec8ea\transformed\room-runtime-2.6.1\AndroidManifest.xml:27:13-37
+83
+84        <receiver
+84-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:34:9-52:20
+85            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+85-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:35:13-76
+86            android:directBootAware="false"
+86-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:36:13-44
+87            android:enabled="true"
+87-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:37:13-35
+88            android:exported="true"
+88-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:38:13-36
+89            android:permission="android.permission.DUMP" >
+89-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:39:13-57
+90            <intent-filter>
+90-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:40:13-42:29
+91                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+91-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:17-91
+91-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:41:25-88
+92            </intent-filter>
+93            <intent-filter>
+93-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:43:13-45:29
+94                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+94-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:17-85
+94-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:44:25-82
+95            </intent-filter>
+96            <intent-filter>
+96-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:46:13-48:29
+97                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+97-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:17-88
+97-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:47:25-85
+98            </intent-filter>
+99            <intent-filter>
+99-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:49:13-51:29
+100                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+100-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:17-95
+100-->[androidx.profileinstaller:profileinstaller:1.4.0] C:\Users\Henry\.gradle\caches\8.10.2\transforms\47866180d229477fca1a68fbfb46265d\transformed\profileinstaller-1.4.0\AndroidManifest.xml:50:25-92
+101            </intent-filter>
+102        </receiver>
+103    </application>
+104
+105</manifest>

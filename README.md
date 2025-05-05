@@ -17,5 +17,5 @@ The main features implemented into this project is:
 This app is designed to use a users current location, via gps or wifi connection. Without data connection this app wont start correctly and users wont be able to use it. 
 
 ## Contribution
-Melvin Agram - 50%
+Melvin Agram - 50%  \
 Christopher Son - 50%
